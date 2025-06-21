@@ -1,0 +1,422 @@
+---------------------------------Contoh Query serta perintah  SQL  [ Relasi Table 2,3/4 dst Table Relasi ] dan luarannya-------------------------------------
+
+
+1. Query untuk Menampilkan Daftar Buku yang Sedang Diskon:
+MariaDB [toko_buku_a]> SELECT
+    ->     buku.nama_buku AS "Nama Buku",
+    ->     kategori.kategori AS "Kategori Buku",
+    ->     kategori.diskon AS "Diskon (%)",
+    ->     kategori.tgl_mulai AS "Tanggal Mulai",
+    ->     kategori.tgl_berakhir AS "Tanggal Berakhir"
+    -> FROM
+    ->     buku
+    -> JOIN
+    ->     kategori ON buku.id_kategori = kategori.id_kategori
+    -> WHERE
+    ->     (kategori.tgl_mulai BETWEEN '2025-01-01' AND '2025-01-31')
+    ->     OR (kategori.tgl_berakhir BETWEEN '2025-01-01' AND '2025-01-31')
+    ->     OR (kategori.tgl_mulai <= '2025-01-01' AND kategori.tgl_berakhir >= '2025-01-31');
++----------------------------+---------------+------------+---------------+------------------+
+| Nama Buku                  | Kategori Buku | Diskon (%) | Tanggal Mulai | Tanggal Berakhir |
++----------------------------+---------------+------------+---------------+------------------+
+| Laskar Pelangi             | Novel         |      10.00 | 2025-05-01    | 2025-01-03       |
+| Negeri 5 Menara            | Novel         |      10.00 | 2025-05-01    | 2025-01-03       |
+| Manusia Setengah Salmon    | Novel         |      10.00 | 2025-05-01    | 2025-01-03       |
+| Kewarganegaraan            | Misteri       |      10.00 | 2025-01-13    | 2025-03-09       |
+| Metode Perhitungan         | Misteri       |      10.00 | 2025-01-13    | 2025-03-09       |
+| Ilmu Pengetahuan Alam      | Misteri       |      10.00 | 2025-01-13    | 2025-03-09       |
+| Sang proklamator           | Romansa       |      15.00 | 2025-01-14    | 2025-03-10       |
+| Bung Hatta                 | Romansa       |      15.00 | 2025-01-14    | 2025-03-10       |
+| Si Ibu Negara              | Romansa       |      15.00 | 2025-01-14    | 2025-03-10       |
+| Don Quixote                | Sejarah       |       5.00 | 2025-01-15    | 2025-03-11       |
+| Langit ke 7                | Sejarah       |       5.00 | 2025-01-15    | 2025-03-11       |
+| Penalaran                  | Sejarah       |       5.00 | 2025-01-15    | 2025-03-11       |
+| Retorika Dalam Berfikir    | Sejarah       |       5.00 | 2025-01-15    | 2025-03-11       |
+| Teknologi Informasi        | Thriller      |      20.00 | 2025-01-16    | 2025-03-12       |
+| Algoritma pemrograman      | Thriller      |      20.00 | 2025-01-16    | 2025-03-12       |
+| Data Bases                 | Thriller      |      20.00 | 2025-01-16    | 2025-03-12       |
+| Alices Adventures          | Inspiratif    |      10.00 | 2025-01-17    | 2025-03-13       |
+| Membaca Mimik Wajah        | Inspiratif    |      10.00 | 2025-01-17    | 2025-03-13       |
+| melihat sifat dari tubuh   | Inspiratif    |      10.00 | 2025-01-17    | 2025-03-13       |
+| The Elegant Universe       | Politik       |       5.00 | 2025-01-18    | 2025-03-14       |
+| Moby-Dick                  | Politik       |       5.00 | 2025-01-18    | 2025-03-14       |
+| Sang Pemimpi               | Politik       |       5.00 | 2025-01-18    | 2025-03-14       |
+| Cara Pakai APD             | Drama         |      25.00 | 2025-01-19    | 2025-03-15       |
+| Fungsi SpatuBut Dlm Proyek | Drama         |      25.00 | 2025-01-19    | 2025-03-15       |
+| Fungsi Jas Kerja           | Drama         |      25.00 | 2025-01-19    | 2025-03-15       |
+| Robinson Crusoe            | Sastra        |      30.00 | 2025-01-20    | 2025-03-16       |
+| Kumpulan Qasidah           | Sastra        |      30.00 | 2025-01-20    | 2025-03-16       |
+| Sholawat Nabi              | Sastra        |      30.00 | 2025-01-20    | 2025-03-16       |
+| Wisata pantai 1000         | Religi        |      10.00 | 2025-01-21    | 2025-03-17       |
+| Goa Hiro                   | Religi        |      10.00 | 2025-01-21    | 2025-03-17       |
+| Bukit 30                   | Religi        |      10.00 | 2025-01-21    | 2025-03-17       |
+| Asal buat                  | Psikologi     |      15.00 | 2025-01-22    | 2025-03-18       |
+| Kudanil Salto              | Psikologi     |      15.00 | 2025-01-22    | 2025-03-18       |
+| Lalat Gurun                | Psikologi     |      15.00 | 2025-01-22    | 2025-03-18       |
+| Kucing Liar                | Teknologi     |       5.00 | 2025-01-23    | 2025-03-19       |
+| Domba Gurun                | Teknologi     |       5.00 | 2025-01-23    | 2025-03-19       |
+| Tembak menembak            | Teknologi     |       5.00 | 2025-01-23    | 2025-03-19       |
+| Resep membuat B2 Kriuk     | Ekonomi       |      20.00 | 2025-01-24    | 2025-03-20       |
+| Rendang Kentang            | Ekonomi       |      20.00 | 2025-01-24    | 2025-03-20       |
++----------------------------+---------------+------------+---------------+------------------+
+39 rows in set (0.003 sec)
+
+
+2. query menggunakan JOIN antara tabel buku, kategori,kriteria, pengarang, dan penerbit guna menampilkan nama buku, kategori, kriteria, pengarang, 
+penerbit, halaman, dan harga jual. Disini kami akan menampilkan subagian dari 60 data yang telah kami isi di tabel buku:
+MariaDB [toko_buku_a]> SELECT
+    ->     buku.nama_buku AS "Nama Buku",
+    ->     kategori.kategori AS "Kategori",
+    ->     kriteria.kriteria AS "Kriteria",
+    ->     pengarang.nama_pengarang AS "Pengarang",
+    ->     penerbit.nama_penerbit AS "Penerbit",
+    ->     buku.halaman AS "Halaman",
+    ->     buku.harga_jual AS "Harga Jual"
+    -> FROM
+    ->     buku
+    -> JOIN
+    ->     kategori ON buku.id_kategori = kategori.id_kategori
+    -> JOIN
+    ->     kriteria ON buku.id_kriteria = kriteria.id_kriteria
+    -> JOIN
+    ->     pengarang ON buku.id_pengarang = pengarang.id_pengarang
+    -> JOIN
+    ->     penerbit ON buku.id_penerbit = penerbit.id_penerbit;
++-----------------------------+--------------+------------+-------------------+---------------+---------+------------+
+| Nama Buku                   | Kategori     | Kriteria   | Pengarang         | Penerbit      | Halaman | Harga Jual |
++-----------------------------+--------------+------------+-------------------+---------------+---------+------------+
+| Laskar Pelangi              | Novel        | SOFT COVER | Tereliye          | Bentang       |     563 |   50000.00 |
+| Negeri 5 Menara             | Novel        | SOFT COVER | Tereliye          | Bentang       |     490 |   65000.00 |
+| Si naga                     | Biografi     | SOFT COVER | Tereliye          | Gramedia      |     300 |  100000.00 |
+| SI KUNTI BOGEL              | Fantasi      | SOFT COVER | Tereliye          | Bentang       |    3333 |  600000.00 |
+| Sang pewaris                | Filsafat     | SOFT COVER | Tereliye          | Bentang       |     456 |   60000.00 |
+| Timun Mas                   | Biografi     | SOFT COVER | Tereliye          | Gramedia      |     456 |   80000.00 |
+| Hutan Keramat               | Fantasi      | SOFT COVER | Tereliye          | Bentang       |     456 |  120000.00 |
+| Manusia Setengah Salmon     | Novel        | SOFT COVER | Tereliye          | Bentang       |     368 |   55000.00 |
+| Tikus Berdasi               | Petualangan  | SOFT COVER | Prov.habiburahman | Gramedia      |     456 |   70000.00 |
+| Bandung Lautan Api          | Fiksi Ilmiah | SOFT COVER | Prov.habiburahman | Gramedia      |     450 |   70000.00 |
+| Kewarganegaraan             | Misteri      | SOFT COVER | Prov.habiburahman | Bloomsbury    |     620 |   58500.00 |
+| Many to kaya                | Pendidikan   | SOFT COVER | Prov.habiburahman | HarperOne     |     650 |   98000.00 |
+| Ilmu Pengetahuan Alam       | Misteri      | SOFT COVER | Prov.habiburahman | Bloomsbury    |     450 |   90000.00 |
+| Sang proklamator            | Romansa      | SOFT COVER | Prov.habiburahman | Penguin       |     980 |   80000.00 |
+| Bung Hatta                  | Romansa      | SOFT COVER | Prov.habiburahman | Penguin       |     398 |   95000.00 |
+| Teknologi Informasi         | Thriller     | SOFT COVER | Andrean sihaliho  | HarperCollins |     420 |   66000.00 |
+| Don Quixote                 | Sejarah      | SOFT COVER | Andrean sihaliho  | Gramedia      |     456 |   70000.00 |
+| Moby-Dick                   | Politik      | SOFT COVER | Andrean sihaliho  | HarperCollins |     990 |   80000.00 |
+| Alices Adventures           | Inspiratif   | SOFT COVER | Andrean sihaliho  | Gramedia      |     808 |   80000.00 |
+| Sang Pemimpi                | Politik      | SOFT COVER | Andrean sihaliho  | HarperCollins |     650 |   70000.00 |
+| Penalaran                   | Sejarah      | SOFT COVER | Andrean sihaliho  | Gramedia      |     348 |  110000.00 |
+| Cara Pakai APD              | Drama        | SOFT COVER | Andrean sihaliho  | Kompas        |     340 |   87000.00 |
+| Membaca Mimik Wajah         | Inspiratif   | SOFT COVER | Andrean sihaliho  | Gramedia      |     680 |   88000.00 |
+| Retorika Dalam Berfikir     | Sejarah      | SOFT COVER | Andrean sihaliho  | Gramedia      |     567 |   76000.00 |
+| Algoritma pemrograman       | Thriller     | SOFT COVER | Andrean sihaliho  | HarperCollins |     678 |   89000.00 |
+| Data Bases                  | Thriller     | SOFT COVER | Andrean sihaliho  | HarperCollins |     678 |   98000.00 |
+| Fungsi SpatuBut Dlm Proyek  | Drama        | SOFT COVER | Andrean sihaliho  | Kompas        |     789 |  125000.00 |
+| Robinson Crusoe             | Sastra       | SOFT COVER | Agus Hermawan     | Gramedia      |     303 |   60000.00 |
+| Wisata pantai 1000          | Religi       | SOFT COVER | Agus Hermawan     | Kompas        |     470 |   70000.00 |
+| Asal buat                   | Psikologi    | SOFT COVER | Agus Hermawan     | Bentang       |     980 |   88000.00 |
+| Kudanil Salto               | Psikologi    | SOFT COVER | Agus Hermawan     | Bentang       |     567 |  900000.00 |
+| Kumpulan Qasidah            | Sastra       | SOFT COVER | Agus Hermawan     | Gramedia      |     980 |   80000.00 |
+| Goa Hiro                    | Religi       | SOFT COVER | Agus Hermawan     | HarperCollins |     656 |   87000.00 |
+| Lalat Gurun                 | Psikologi    | SOFT COVER | Agus Hermawan     | Bentang       |     880 |   99000.00 |
+| Kucing Liar                 | Teknologi    | SOFT COVER | Agus Hermawan     | Gramedia      |     456 |   79000.00 |
+| Tembak menembak             | Teknologi    | SOFT COVER | Agus Hermawan     | Gramedia      |     457 |   85000.00 |
+| Resep membuat B2 Kriuk      | Ekonomi      | SOFT COVER | Agus Hermawan     | Penguin       |     679 |   70000.00 |
+| Rendang Kentang             | Ekonomi      | SOFT COVER | Agus Hermawan     | Penguin       |     590 |   74000.00 |
+| Beristri 29                 | Biografi     | HARD COVER | Tereliye          | Gramedia      |     100 |   85000.00 |
+| Si kepala batu              | Filsafat     | HARD COVER | Tereliye          | Bentang       |     179 |   75000.00 |
+| Maraknya Korupsi            | Petualangan  | HARD COVER | Prov.habiburahman | Republika     |     100 |   90000.00 |
+| Sang Merah Putih            | Fiksi Ilmiah | HARD COVER | Prov.habiburahman | Gramedia      |     100 |  100000.00 |
+| 1945                        | Fiksi Ilmiah | HARD COVER | Prov.habiburahman | Gramedia      |     100 |   75000.00 |
+| Evendi sang manusia kambing | Self-Help    | HARD COVER | Prov.habiburahman | Gramedia      |     100 |   95000.00 |
+| Anak Abah 01                | Petualangan  | HARD COVER | Prov.habiburahman | Republika     |     232 |   65000.00 |
+| Statistik                   | Pendidikan   | HARD COVER | Prov.habiburahman | HarperOne     |     186 |   65000.00 |
+| Provit Keuangan             | Pendidikan   | HARD COVER | Prov.habiburahman | HarperOne     |     207 |   75000.00 |
+| Metode Perhitungan          | Misteri      | HARD COVER | Prov.habiburahman | Bloomsbury    |     250 |  100000.00 |
+| Si Ibu Negara               | Romansa      | HARD COVER | Prov.habiburahman | Penguin       |     208 |   95000.00 |
+| The Hous                    | Fantasi      | HARD COVER | Andrean sihaliho  | Bentang       |     100 |   90000.00 |
+| mony-mony-and-mony          | Self-Help    | HARD COVER | Andrean sihaliho  | Bentang       |     100 |   85000.00 |
+| The Elegant Universe        | Politik      | HARD COVER | Andrean sihaliho  | HarperCollins |     170 |   98000.00 |
+| Langit ke 7                 | Sejarah      | HARD COVER | Andrean sihaliho  | Gramedia      |     120 |   96000.00 |
+| melihat sifat dari tubuh    | Inspiratif   | HARD COVER | Andrean sihaliho  | Gramedia      |     236 |   65000.00 |
+| Fungsi Jas Kerja            | Drama        | HARD COVER | Andrean sihaliho  | Kompas        |     454 |   50000.00 |
+| Kambing berbulu paku        | Self-Help    | HARD COVER | Agus Hermawan     | Gramedia      |     222 |  110000.00 |
+| Dunia Sophie                | Filsafat     | HARD COVER | Agus Hermawan     | Gramedia      |     232 |   70000.00 |
+| Domba Gurun                 | Teknologi    | HARD COVER | Agus Hermawan     | Gramedia      |     200 |   70000.00 |
+| Bukit 30                    | Religi       | HARD COVER | Agus Hermawan     | Kompas        |     125 |   80000.00 |
+| Sholawat Nabi               | Sastra       | HARD COVER | Agus Hermawan     | Gramedia      |     245 |   60000.00 |
++-----------------------------+--------------+------------+-------------------+---------------+---------+------------+
+60 rows in set (0.004 sec)
+penjelasan: 
+from buku
+Tabel utama yang menjadi fokus query adalah buku
+JOIN
+Menggabungkan tabel buku dengan tabel lainnya berdasarkan kolom kunci relasi:
+•	buku.id_kategori = kategori.id_kategori: Relasi dengan tabel kategori.
+•	buku.id_kriteria = kriteria.id_kriteria: Relasi dengan tabel kriteria.
+•	buku.id_pengarang = pengarang.id_pengarang: Relasi dengan tabel pengarang.
+•	buku.id_penerbit = penerbit.id_penerbit: Relasi dengan tabel penerbit.
+
+
+
+3. menampilkan data di tabel pelanggan sebelum menambah data pelanggan:
+MariaDB [toko_buku_a]> select * from pelanggan;
++--------------+-----------------------+------------+------+--------------+
+| ID_PELANGGAN | NAMA_PELANGGAN        | ALAMAT     | UMUR | NO_TELEPON   |
++--------------+-----------------------+------------+------+--------------+
+| C001         | Andi Saputra          | Jakarta    |   20 | 81234567890  |
+| C002         | mr. fauzan hasanuddin | pekan baru |   21 | 081261268743 |
+| C003         | Citra Dewi            | Surabaya   |   23 | 83234567892  |
++--------------+-----------------------+------------+------+--------------+
+3 rows in set (0.001 sec)
+
+
+
+
+Selanjutnya kami akan coba menambah 2 pelanggan ke tabel pelanggan dengan nama ali syahbana dan oktaviyudha dan nanti akan melakukan pembelian
+4. menambahakan data pelanggan menggunakan query
+#proses pembelian
+menambahakan data pelanggan menggunakan query:
+contoh: pelanggan yang bernama ali syahbana dan oktaviyudha
+MariaDB [toko_buku_a]> INSERT INTO pelanggan (ID_PELANGGAN, NAMA_PELANGGAN, ALAMAT, UMUR, NO_TELEPON)
+    -> VALUES ('C004', 'ali syahbana', 'sumatera utara', 21, '081261268743'),
+    -> ('C005', 'oktaviyudha', 'jambi', 21, '081261268787')
+    -> ;
+Query OK, 2 rows affected (0.006 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [toko_buku_a]> select * from pelanggan;
++--------------+-----------------------+----------------+------+--------------+
+| ID_PELANGGAN | NAMA_PELANGGAN        | ALAMAT         | UMUR | NO_TELEPON   |
++--------------+-----------------------+----------------+------+--------------+
+| C001         | Andi Saputra          | Jakarta        |   20 | 81234567890  |
+| C002         | mr. fauzan hasanuddin | pekan baru     |   21 | 081261268743 |
+| C003         | Citra Dewi            | Surabaya       |   23 | 83234567892  |
+| C004         | ali syahbana          | sumatera utara |   21 | 081261268743 |
+| C005         | oktaviyudha           | jambi          |   21 | 081261268787 |
++--------------+-----------------------+----------------+------+--------------+
+5 rows in set (0.001 sec)
+
+
+
+5. Identifikasi Data Buku, pelanggan dengan nama ali syahbana akan membeli buku dengan nama bandung lautan api untuk melihat informasi harga dan 
+diskon saya akan menggunakan query berikut:
+SELECT id_buku, nama_buku, id_kategori, harga_jual 
+FROM buku 
+WHERE nama_buku = 'bandung lautan api';
+MariaDB [toko_buku_a]> SELECT
+    ->     buku.id_buku,
+    ->     buku.nama_buku,
+    ->     kategori.kategori AS "Kategori",
+    ->     buku.harga_jual,
+    ->     kategori.diskon,
+    ->     kategori.tgl_mulai,
+    ->     kategori.tgl_berakhir
+    -> FROM
+    ->     buku
+    -> JOIN
+    ->     kategori ON buku.id_kategori = kategori.id_kategori
+    -> WHERE
+    ->     buku.nama_buku = 'Bandung Lautan Api';
++---------+--------------------+--------------+------------+--------+------------+--------------+
+| id_buku | nama_buku          | Kategori     | harga_jual | diskon | tgl_mulai  | tgl_berakhir |
++---------+--------------------+--------------+------------+--------+------------+--------------+
+| BK021   | Bandung Lautan Api | Fiksi Ilmiah |   70000.00 |   5.00 | 2025-10-01 | 2025-06-03   |
++---------+--------------------+--------------+------------+--------+------------+--------------+
+1 row in set (0.001 sec)
+
+
+6. Query untuk Menambahkan Transaksi
+MariaDB [toko_buku_a]> INSERT INTO penjualan (ID_PENJUALAN, ID_BUKU, ID_PELANGGAN, ID_PEMBAYARAN, TGL_PENJUALAN, JUMLAH)
+    -> VALUES ('P006', 'BK021', 'C004', 'J004', CURDATE(), 2);
+Query OK, 1 row affected (0.013 sec)
+
+
+7. Query untuk menghitung total harga disini tabel yang berelasi adalah penjualan ke buku melalui id_buku, tabel buku ke kategori melalui id_kategori 
+dan akan mengecek diskon kalau tanggal diskon berlaku akan di hitung tetapi kalau tanggal diskon tidak berlaku maka harganya normal berikut query dan 
+hasilnya  nya:
+MariaDB [toko_buku_a]> SELECT
+    ->     p.ID_PENJUALAN,
+    ->     pel.NAMA_PELANGGAN,
+    ->     b.NAMA_BUKU,
+    ->     b.HARGA_JUAL,
+    ->     k.DISKON,
+    ->     p.JUMLAH,
+    ->     (b.HARGA_JUAL - (b.HARGA_JUAL * COALESCE(k.DISKON, 0) / 100)) * p.JUMLAH AS TOTAL_SETELAH_DISKON,
+    ->     p.TGL_PENJUALAN,
+    ->     jp.JENIS AS METODE_PEMBAYARAN
+    -> FROM
+    ->     penjualan p
+    -> JOIN
+    ->     pelanggan pel ON p.ID_PELANGGAN = pel.ID_PELANGGAN
+    -> JOIN
+    ->     buku b ON p.ID_BUKU = b.ID_BUKU
+    -> JOIN
+    ->     kategori k ON b.ID_KATEGORI = k.ID_KATEGORI
+    -> JOIN
+    ->     jenis_pembayaran jp ON p.ID_PEMBAYARAN = jp.ID_PEMBAYARAN
+    -> WHERE
+    ->     p.ID_PENJUALAN = 'P005';
++--------------+----------------+--------------------+------------+--------+--------+----------------------+---------------+-------------------+
+| ID_PENJUALAN | NAMA_PELANGGAN | NAMA_BUKU          | HARGA_JUAL | DISKON | JUMLAH | TOTAL_SETELAH_DISKON | TGL_PENJUALAN | METODE_PEMBAYARAN |
++--------------+----------------+--------------------+------------+--------+--------+----------------------+---------------+-------------------+
+| P005         | ali syahbana   | Bandung Lautan Api |   70000.00 |   5.00 |      2 |      133000.00000000 | 2025-01-18    | Transfer Bank     |
++--------------+----------------+--------------------+------------+--------+--------+----------------------+---------------+-------------------+
+1 row in set (0.001 sec)
+
+
+8. Query untuk menampilkan harga setelah diskon untuk setiap transaksi yang terjadi pada bulan ini:
+MariaDB [toko_buku_a]> SELECT
+    ->     p.ID_PENJUALAN,
+    ->     pel.NAMA_PELANGGAN,
+    ->     b.NAMA_BUKU,
+    ->     b.HARGA_JUAL,
+    ->     k.DISKON,
+    ->     p.JUMLAH,
+    ->     (b.HARGA_JUAL - (b.HARGA_JUAL * COALESCE(k.DISKON, 0) / 100)) * p.JUMLAH AS TOTAL_SETELAH_DISKON,
+    ->     p.TGL_PENJUALAN,
+    ->     jp.JENIS AS METODE_PEMBAYARAN
+    -> FROM
+    ->     penjualan p
+    -> JOIN
+    ->     pelanggan pel ON p.ID_PELANGGAN = pel.ID_PELANGGAN
+    -> JOIN
+    ->     buku b ON p.ID_BUKU = b.ID_BUKU
+    -> JOIN
+    ->     kategori k ON b.ID_KATEGORI = k.ID_KATEGORI
+    -> JOIN
+    ->     jenis_pembayaran jp ON p.ID_PEMBAYARAN = jp.ID_PEMBAYARAN
+    -> WHERE
+    ->     MONTH(p.TGL_PENJUALAN) = MONTH(CURDATE())  -- Bulan ini
+    ->     AND YEAR(p.TGL_PENJUALAN) = YEAR(CURDATE()); -- Tahun ini
++--------------+-----------------------+--------------------------+------------+--------+--------+----------------------+---------------+-------------------+
+| ID_PENJUALAN | NAMA_PELANGGAN        | NAMA_BUKU                | HARGA_JUAL | DISKON | JUMLAH | TOTAL_SETELAH_DISKON | TGL_PENJUALAN | METODE_PEMBAYARAN |
++--------------+-----------------------+--------------------------+------------+--------+--------+----------------------+---------------+-------------------+
+| P001         | Andi Saputra          | Laskar Pelangi           |   50000.00 |  10.00 |      2 |       90000.00000000 | 2025-01-15    | Tunai             |
+| P002         | Andi Saputra          | Kewarganegaraan          |   58500.00 |  10.00 |      1 |       52650.00000000 | 2025-01-15    | E-Wallet          |
+| P003         | mr. fauzan hasanuddin | melihat sifat dari tubuh |   65000.00 |  10.00 |     10 |      585000.00000000 | 2025-01-16    | E-Wallet          |
+| P004         | Citra Dewi            | Ilmu Pengetahuan Alam    |   90000.00 |  10.00 |      5 |      405000.00000000 | 2025-01-17    | Transfer Bank     |
+| P005         | ali syahbana          | Bandung Lautan Api       |   70000.00 |   5.00 |      2 |      133000.00000000 | 2025-01-18    | Transfer Bank     |
+
+
+9. Untuk memverifikasi detail transaksi, gunakan query berikut:
+MariaDB [toko_buku_a]> SELECT
+    ->     penjualan.ID_PENJUALAN AS 'ID Penjualan',
+    ->     penjualan.TGL_PENJUALAN AS 'Tanggal Penjualan',
+    ->     pelanggan.NAMA_PELANGGAN AS 'Nama Pelanggan',
+    ->     buku.NAMA_BUKU AS 'Nama Buku',
+    ->     penjualan.JUMLAH AS 'Jumlah',
+    ->     buku.HARGA_JUAL AS 'Harga Sebelum Diskon',
+    ->     (buku.HARGA_JUAL - (buku.HARGA_JUAL * COALESCE(kategori.DISKON, 0) / 100)) AS 'Harga Setelah Diskon',
+    ->     (penjualan.JUMLAH * (buku.HARGA_JUAL - (buku.HARGA_JUAL * COALESCE(kategori.DISKON, 0) / 100))) AS 'Total Harga'
+    -> FROM
+    ->     penjualan
+    -> JOIN
+    ->     pelanggan ON penjualan.ID_PELANGGAN = pelanggan.ID_PELANGGAN
+    -> JOIN
+    ->     buku ON penjualan.ID_BUKU = buku.ID_BUKU
+    -> JOIN
+    ->     kategori ON buku.ID_KATEGORI = kategori.ID_KATEGORI
+    -> WHERE
+    ->     MONTH(penjualan.TGL_PENJUALAN) = MONTH(CURDATE())  -- Bulan ini
+    ->     AND YEAR(penjualan.TGL_PENJUALAN) = YEAR(CURDATE()); -- Tahun ini
++--------------+-------------------+-----------------------+--------------------------+--------+----------------------+----------------------+-----------------+
+| ID Penjualan | Tanggal Penjualan | Nama Pelanggan        | Nama Buku                | Jumlah | Harga Sebelum Diskon | Harga Setelah Diskon | Total Harga     |
++--------------+-------------------+-----------------------+--------------------------+--------+----------------------+----------------------+-----------------+
+| P001         | 2025-01-15        | Andi Saputra          | Laskar Pelangi           |      2 |             50000.00 |       45000.00000000 |  90000.00000000 |
+| P002         | 2025-01-15        | Andi Saputra          | Kewarganegaraan          |      1 |             58500.00 |       52650.00000000 |  52650.00000000 |
+| P003         | 2025-01-16        | mr. fauzan hasanuddin | melihat sifat dari tubuh |     10 |             65000.00 |       58500.00000000 | 585000.00000000 |
+| P004         | 2025-01-17        | Citra Dewi            | Ilmu Pengetahuan Alam    |      5 |             90000.00 |       81000.00000000 | 405000.00000000 |
+| P005         | 2025-01-18        | ali syahbana          | Bandung Lautan Api       |      2 |             70000.00 |       66500.00000000 | 133000.00000000 |
+
+Penjelasan:
+ID Penjualan: ID dari transaksi penjualan.
+Nama Pelanggan: Nama pelanggan yang melakukan pembelian.
+Nama Buku: Nama buku yang dibeli.
+Diskon: Persentase diskon yang berlaku pada buku.
+Jumlah: Jumlah buku yang dibeli.
+Harga Sebelum Diskon: Harga buku sebelum diskon diterapkan.
+Harga Setelah Diskon: Harga buku setelah diskon diterapkan.
+Metode Pembayaran: Jenis metode pembayaran yang digunakan.
+Total Harga: Total harga sebelum diskon, dihitung dengan mengalikan harga dengan jumlah buku yang dibeli
+
+
+
+kami akan menambahakan atau meng update stok semua buku dengan kategori novel:
+MariaDB [toko_buku_a]> SELECT ID_KATEGORI, KATEGORI
+    -> FROM kategori
+    -> WHERE KATEGORI = 'novel';
++-------------+----------+
+| ID_KATEGORI | KATEGORI |
++-------------+----------+
+| k001        | Novel    |
++-------------+----------+
+1 row in set (0.000 sec)
+
+
+10. queri untuk menampilkan stok buku dengan kategori novel:
+MariaDB [toko_buku_a]> SELECT
+    ->     buku.ID_BUKU AS 'ID Buku',
+    ->     buku.NAMA_BUKU AS 'Nama Buku',
+    ->     kategori.KATEGORI AS 'Kategori',
+    ->     stok.STOK_AWAL AS 'Stok Awal',
+    ->     COALESCE(stok.STOK_MASUK, 0) AS 'Stok Masuk',
+    ->     (stok.STOK_AWAL + COALESCE(stok.STOK_MASUK, 0)) AS 'Stok Total',
+    ->     stok.TGL_STOK_MASUK AS 'Tanggal Stok Masuk'
+    -> FROM
+    ->     stok
+    -> JOIN
+    ->     buku ON stok.ID_BUKU = buku.ID_BUKU
+    -> JOIN
+    ->     kategori ON buku.ID_KATEGORI = kategori.ID_KATEGORI
+    -> WHERE
+    ->     kategori.KATEGORI = 'Novel';
++---------+-------------------------+----------+-----------+------------+------------+--------------------+
+| ID Buku | Nama Buku               | Kategori | Stok Awal | Stok Masuk | Stok Total | Tanggal Stok Masuk |
++---------+-------------------------+----------+-----------+------------+------------+--------------------+
+| BK001   | Laskar Pelangi          | Novel    |        41 |          0 |         41 | NULL               |
+| BK004   | Negeri 5 Menara         | Novel    |        46 |          0 |         46 | NULL               |
+| BK018   | Manusia Setengah Salmon | Novel    |        60 |          0 |         60 | NULL               |
++---------+-------------------------+----------+-----------+------------+------------+--------------------+
+3 rows in set (0.001 sec)
+
+11. query untuk Update stok buku dengan kategori novel sebanyak 100:
+MariaDB [toko_buku_a]> UPDATE stok
+    -> SET
+    ->     STOK_MASUK = COALESCE(STOK_MASUK, 0) + 100,
+    ->     TGL_STOK_MASUK = CURDATE()
+    -> WHERE ID_BUKU IN (
+    ->     SELECT buku.ID_BUKU
+    ->     FROM buku
+    ->     JOIN kategori ON buku.ID_KATEGORI = kategori.ID_KATEGORI
+    ->     WHERE kategori.KATEGORI = 'Novel'
+    -> );
+Query OK, 3 rows affected (0.006 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+
+12. Cek stok sesudah du update
+MariaDB [toko_buku_a]> SELECT
+    ->     buku.ID_BUKU AS 'ID Buku',
+    ->     buku.NAMA_BUKU AS 'Nama Buku',
+    ->     kategori.KATEGORI AS 'Kategori',
+    ->     stok.STOK_AWAL AS 'Stok Awal',
+    ->     COALESCE(stok.STOK_MASUK, 0) AS 'Stok Masuk',
+    ->     (stok.STOK_AWAL + COALESCE(stok.STOK_MASUK, 0)) AS 'Stok Total',
+    ->     stok.TGL_STOK_MASUK AS 'Tanggal Stok Masuk'
+    -> FROM
+    ->     stok
+    -> JOIN
+    ->     buku ON stok.ID_BUKU = buku.ID_BUKU
+    -> JOIN
+    ->     kategori ON buku.ID_KATEGORI = kategori.ID_KATEGORI
+    -> WHERE
+    ->     kategori.KATEGORI = 'Novel';
++---------+-------------------------+----------+-----------+------------+------------+--------------------+
+| ID Buku | Nama Buku               | Kategori | Stok Awal | Stok Masuk | Stok Total | Tanggal Stok Masuk |
++---------+-------------------------+----------+-----------+------------+------------+--------------------+
+| BK001   | Laskar Pelangi          | Novel    |        41 |        100 |        141 | 2025-01-18         |
+| BK004   | Negeri 5 Menara         | Novel    |        46 |        100 |        146 | 2025-01-18         |
+| BK018   | Manusia Setengah Salmon | Novel    |        60 |        100 |        160 | 2025-01-18         |
++---------+-------------------------+----------+-----------+------------+------------+--------------------+
+3 rows in set (0.001 sec)
